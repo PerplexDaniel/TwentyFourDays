@@ -1,0 +1,6 @@
+﻿@model HomeViewModel
+<h1>@Model.Content.Title</h1>
+@if (!string.IsNullOrEmpty(Model.Content.ContactLinkText) && Model.Content.ContactPage != null)
+{
+    <h3><a href="@Model.Content.ContactPage.Url">@Model.Content.ContactLinkText</a></h3>
+}
