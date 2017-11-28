@@ -18,10 +18,12 @@ namespace TwentyFourDays.Code.Attributes.Validation
             => EmailAddressAttribute.IsValid(value);
 
         public override IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
-            => new[] { new ModelClientValidationRule
+        {
+            yield return new ModelClientValidationRule
             {
                 ValidationType = "email",
                 ErrorMessage = GetErrorMessage(metadata)
-            } };
+            };
+        }            
     }
 }

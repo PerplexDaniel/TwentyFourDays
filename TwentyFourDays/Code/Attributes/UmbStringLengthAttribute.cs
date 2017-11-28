@@ -44,10 +44,7 @@ namespace TwentyFourDays.Code.Attributes.Validation
         public override IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
         {
             int? maxLength = GetMaxLength();
-            if(!maxLength.HasValue)
-            {
-                yield break;
-            } else
+            if(maxLength.HasValue)
             {
                 yield return new ModelClientValidationStringLengthRule(GetErrorMessage(metadata), 0, maxLength.Value);
             }

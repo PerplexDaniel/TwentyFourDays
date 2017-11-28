@@ -32,9 +32,7 @@ namespace TwentyFourDays.Code.Examine
                 int? homepageId = UmbracoContext.Current?.PublishedContentRequest?.PublishedContent?.AncestorOrSelf<Home>()?.Id;
                 if (homepageId != null)
                 {
-                    operation
-                    .And()
-                    .Field("@homepageId", homepageId.ToString());
+                    operation.And().Field("@homepageId", homepageId.ToString());
                 }
             }
 
@@ -44,9 +42,9 @@ namespace TwentyFourDays.Code.Examine
         }
 
         public T GetOne<T>(string doctypeAlias) where T : class, IPublishedContent
-            => HttpContext.Current?.GetItem($"{nameof(UmbracoNodeSearcher)}_{nameof(GetOne)}_{doctypeAlias}", () =>
-            {
-                return GetAll<T>(doctypeAlias, maxResults: 1)?.FirstOrDefault();
-            });        
+        {
+            string cacheKey = $"{nameof(UmbracoNodeSearcher)}_{nameof(GetOne)}_{doctypeAlias}";
+            return HttpContext.Current?.GetItem(cacheKey, () => GetAll<T>(doctypeAlias, maxResults: 1)?.FirstOrDefault());
+        }   
     }
 }
